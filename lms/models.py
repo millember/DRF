@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Course(models.Model):
-    name = models.CharField(
+    title = models.CharField(
         max_length=100,
         verbose_name="Название курса",
         help_text="Укажите название курса",
@@ -22,16 +22,16 @@ class Course(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.title
 
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
-        ordering = ["name"]
+        ordering = ["title"]
 
 
 class Lesson(models.Model):
-    name = models.CharField(
+    title = models.CharField(
         max_length=100,
         verbose_name="Название урока",
         help_text="Укажите название урока",
@@ -58,7 +58,7 @@ class Lesson(models.Model):
         help_text="Загрузите превью урока",
     )
 
-    video_url = models.URLField(verbose_name="ссылка на урок", help_text="Video URL")
+    video_url = models.URLField(verbose_name="ссылка на урок", blank=True, null=True, help_text="Video URL")
 
     def __str__(self):
         return self.name
@@ -66,4 +66,4 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
-        ordering = ["course", "name"]
+        ordering = ["course", "title"]
