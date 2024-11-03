@@ -1,5 +1,9 @@
 from django.db import models
 
+from config import settings
+
+NULLABLE = {"blank": True, "null": True}
+
 
 class Course(models.Model):
     title = models.CharField(
@@ -19,6 +23,15 @@ class Course(models.Model):
         null=True,
         verbose_name="Превью курса",
         help_text="Загрузите превью курса",
+    )
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="courses",
+        verbose_name="Владелец",
+        help_text="Укажите владельца курса",
+        **NULLABLE,
     )
 
     def __str__(self):
@@ -58,7 +71,18 @@ class Lesson(models.Model):
         help_text="Загрузите превью урока",
     )
 
-    video_url = models.URLField(verbose_name="ссылка на урок", blank=True, null=True, help_text="Video URL")
+    video_url = models.URLField(
+        verbose_name="ссылка на урок", blank=True, null=True, help_text="Video URL"
+    )
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="lessons",
+        verbose_name="Владелец",
+        help_text="Укажите владельца урока",
+        **NULLABLE,
+    )
 
     def __str__(self):
         return self.name

@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import datetime
+
 from lms.models import Course, Lesson
 
 NULLABLE = {"blank": True, "null": True}
@@ -33,7 +35,9 @@ class User(AbstractUser):
         verbose_name="Аватар",
         help_text="Загрузите аватарку",
     )
-    last_login = models.DateTimeField(default=datetime.now, verbose_name="Время последнего посещения", **NULLABLE)
+    last_login = models.DateTimeField(
+        default=datetime.now, verbose_name="Время последнего посещения", **NULLABLE
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
