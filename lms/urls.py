@@ -12,7 +12,7 @@ router = SimpleRouter()
 router.register(r"", CourseViewSet)
 
 urlpatterns = [
-    path("lesson/", LessonListAPIView.as_view(), name=" lesson_list"),
+    path("lesson/", LessonListAPIView.as_view(), name="lesson_list"),
     path("lesson/<int:pk>/", LessonRetrieveAPIView.as_view(), name="lesson_retrieve"),
     path("lesson/create/", LessonCreateAPIView.as_view(), name="lesson_create"),
     path(
