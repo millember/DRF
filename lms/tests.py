@@ -9,8 +9,10 @@ from users.models import User
 class LmsTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email="admin@example.com")
-        self.course = Course.objects.create(title='course_test', owner=self.user)
-        self.lesson = Lesson.objects.create(title='lesson_test', description='test description', owner=self.user)
+        self.course = Course.objects.create(title="course_test", owner=self.user)
+        self.lesson = Lesson.objects.create(
+            title="lesson_test", description="test description", owner=self.user
+        )
         self.client.force_authenticate(user=self.user)
 
     def test_lesson_retrieve(self):
@@ -32,8 +34,6 @@ class LmsTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Lesson.objects.all().count(), 2)
 
-
-
     def test_lesson_update(self):
         """Тест на апдейт данных урока"""
         url = reverse("lms:lesson_update", args=(self.lesson.pk,))
@@ -52,10 +52,11 @@ class LmsTestCase(APITestCase):
         self.assertEqual(Lesson.objects.all().count(), 0)
 
     def test_lesson_list(self):
-        url = reverse('lms:lesson_list')
+        url = reverse("lms:lesson_list")
         self.client.force_authenticate(user=self.user)
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 from django.urls import reverse
 from rest_framework import status
@@ -68,8 +69,10 @@ from users.models import User
 class LmsTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email="admin@example.com")
-        self.course = Course.objects.create(title='course_test', owner=self.user)
-        self.lesson = Lesson.objects.create(title='lesson_test', description='test description', owner=self.user)
+        self.course = Course.objects.create(title="course_test", owner=self.user)
+        self.lesson = Lesson.objects.create(
+            title="lesson_test", description="test description", owner=self.user
+        )
         self.client.force_authenticate(user=self.user)
 
     def test_lesson_retrieve(self):
@@ -91,8 +94,6 @@ class LmsTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Lesson.objects.all().count(), 2)
 
-
-
     def test_lesson_update(self):
         """Тест на апдейт данных урока"""
         url = reverse("lms:lesson_update", args=(self.lesson.pk,))
@@ -111,7 +112,7 @@ class LmsTestCase(APITestCase):
         self.assertEqual(Lesson.objects.all().count(), 0)
 
     def test_lesson_list(self):
-        url = reverse('lms:lesson_list')
+        url = reverse("lms:lesson_list")
         self.client.force_authenticate(user=self.user)
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -122,8 +123,12 @@ class SubscriptionTestCase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create(email="admin@example.com")
-        self.course = Course.objects.create(title="Test Course", description="Test Course description")
-        self.subscription = Subscription.objects.create(user=self.user, course=self.course)
+        self.course = Course.objects.create(
+            title="Test Course", description="Test Course description"
+        )
+        self.subscription = Subscription.objects.create(
+            user=self.user, course=self.course
+        )
         self.client.force_authenticate(user=self.user)
 
     def test_subscription_create(self):

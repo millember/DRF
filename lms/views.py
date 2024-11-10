@@ -1,14 +1,23 @@
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView, get_object_or_404)
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+    get_object_or_404,
+)
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from lms.models import Course, Lesson, Subscription
-from lms.serializer import (CourseDetailSerializer, CourseSerializer,
-                            LessonSerializer, SubscriptionSerializer)
+from lms.serializer import (
+    CourseDetailSerializer,
+    CourseSerializer,
+    LessonSerializer,
+    SubscriptionSerializer,
+)
 from users.paginations import CustomPagination
 from users.permissions import IsModerator, IsOwner
 
@@ -82,15 +91,15 @@ class SubscriptionAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        course_id = request.data.get('course_id')
+        course_id = request.data.get("course_id")
         course_item = get_object_or_404(Course, id=course_id)
         subs_item = Subscription.objects.filter(user=user, course=course_item)
         if subs_item.exists():
             subs_item.delete()
-            message = 'Вы отписались'
+            message = "Вы отписались"
         else:
             Subscription.objects.create(user=user, course=course_item)
-            message = 'Вы подписались'
+            message = "Вы подписались"
         return Response({"message": message})
 
 

@@ -6,7 +6,7 @@ from lms.validators import YoutubeValidators
 
 
 class LessonSerializer(ModelSerializer):
-    validators = [YoutubeValidators(field='video_url')]
+    validators = [YoutubeValidators(field="video_url")]
 
     class Meta:
         model = Lesson
@@ -14,11 +14,11 @@ class LessonSerializer(ModelSerializer):
 
 
 class CourseSerializer(ModelSerializer):
-    validators = [YoutubeValidators(field='video_url')]
+    validators = [YoutubeValidators(field="video_url")]
     is_subscribed = SerializerMethodField()
 
     def get_is_subscribed(self, obj):
-        user = self.context['request'].user
+        user = self.context["request"].user
         if user.is_authenticated:
             return Subscription.objects.filter(user=user, course=obj).exists()
         return False
