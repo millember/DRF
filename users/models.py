@@ -61,7 +61,7 @@ class Payment(models.Model):
     payment_lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, verbose_name="Оплаченный урок", **NULLABLE
     )
-    cost = models.PositiveIntegerField(default=0, verbose_name="Стоимость покупки")
+    payment_sum = models.PositiveIntegerField(default=0, verbose_name="Стоимость покупки")
     CASH = "cash"
     NON_CASH = "non_cash"
     PAYMENT_METHOD = [(CASH, "cash"), (NON_CASH, "non_cash")]
