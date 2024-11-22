@@ -106,3 +106,4 @@ class SubscriptionAPIView(APIView):
 class SubscriptionListAPIView(ListAPIView):
     serializer_class = SubscriptionSerializer
     queryset = Subscription.objects.all()
+
