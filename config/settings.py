@@ -150,7 +150,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 CELERY_BEAT_SCHEDULE = {
     "check_last_login": {
-        "task": "lms.tasks.check_last_login",  # Путь к задаче
+        "task": "lms.task.check_last_login",  # Путь к задаче
         "schedule": timedelta(weeks=4),  # Расписание выполнения задачи
     }
 }

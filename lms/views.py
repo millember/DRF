@@ -18,6 +18,7 @@ from lms.serializer import (
     LessonSerializer,
     SubscriptionSerializer,
 )
+from lms.task import mail_update_course_info
 from users.paginations import CustomPagination
 from users.permissions import IsModerator, IsOwner
 
@@ -31,6 +32,11 @@ class CourseViewSet(ModelViewSet):
         if self.action == "retrieve":
             return CourseDetailSerializer
         return CourseSerializer
+
+    def perform_update(self, serializer):
+        updated_course = serializer.save()
+        mail_update_course_info.delay(updated_course)
+        updated_course.save()
 
     def perform_create(self, serializer):
         course = serializer.save()
